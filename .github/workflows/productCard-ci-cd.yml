@@ -1,0 +1,100 @@
+name: productCard CI/CD
+run-name: ${{ github.actor }} is launching 🚀
+
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [dev]
+
+env:
+  NODE_VERSION: "18.x" # set this to the node version to use
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          #node-version: 18.x
+          #cache: 'npm'
+
+      # Runs a set of commands using the runners shell
+      - name: npm install, build, and test
+        run: |
+          npm install
+          npm run build --if-present
+          npm run test --if-present
+
+      # Runs a single command using the runners shell
+      - name: Install Salesforce CLI
+        run: npm install sfdx-cli --global
+
+      # Runs a single command using the runners shell
+      - name: Create Salesforce Project
+        run: sfdx force:project:create --projectname deploy --defaultpackagedir app --manifest
+
+      # Runs a single command using the runners shell
+      #- name: Create folder ProductCard in staticresources
+      #  run: mkdir -p ./deploy/app/main/default/staticresources/ProductCard && cp -r ./build/. ./deploy/app/main/default/staticresources/ProductCard
+
+      - name: Create ProductCard Static Resources
+        run: sfdx force:staticresource:create -n ProductCard
+        working-directory: ./deploy/app/main/default/staticresources
+
+      # # Runs a set of commands using the runners shell
+      # - name: 'Build and Deploy'
+      #   run: |
+      #     wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
+      #     mkdir sfdx-cli
+      #     tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli
+      #     ./sfdx-cli/install
+
+      # Runs a single command using the runners shell
+      - name: Create the server.key file from the secret variable SERVER_KEY
+        #run: echo "${{ vars.SERVER_KEY }}"  > server.key
+        run: echo "${{ secrets.SERVER_KEY }}"  > server.key
+
+      - name: List files in the repository
+        run: |
+          ls -la ${{ github.workspace }}
+          cd assets
+          ls -la
+
+      # Runs a single command using the runners shell
+      - name: Display the content of the server.key file
+        run: cat server.key # We dont see the content of the file
+
+      # Runs a single command using the runners shell
+      #- name: "Decrypt file"
+      #  run: openssl enc -nosalt -aes-256-cbc -d -in ./assets/server.key.enc -out ./assets/server.key -base64 -K ${{ secrets.DECRYPTION_KEY }} -iv ${{ secrets.DECRYPTION_IV }}
+      # Runs a single command using the runners shell
+      - name: Authentication to Salesforce
+        #run: sfdx force:auth:jwt:grant -i ${{ secrets.CONSUMER_KEY }} -f ./assets/server.key -u ${{ secrets.USERNAME }} -r ${{ secrets.INSTANCEURL }}
+        run: sfdx force:auth:jwt:grant -i ${{ secrets.CONSUMER_KEY }} -f server.key -u ${{ vars.USERNAME }} -r ${{ vars.INSTANCEURL }}
+        # The next command is not working
+        #run: sfdx force:auth:jwt:grant -i ${{ secrets.CONSUMER_KEY }} -f ./assets/server.key -u ${{ secrets.USERNAME }} -r ${{ secrets.INSTANCEURL }}
+
+      # Runs a set of commands using the runners shell
+      - name: Deployment to Salesforce
+        run: sfdx force:source:deploy -p app -w 10 -u ${{vars.USERNAME}}
+        working-directory: ./deploy
+        #run: sfdx force:mdapi:deploy -d force-app/main/default -u ${{vars.USERNAME}}
+        # run: |
+        #   sfdx force:source:convert --rootdir app --outputdir app_tmp
+        #   zip -r app.zip app_tmp
+        #   rm -r app_tmp
+        #   sfdx force:mdapi:deploy --zipfile app.zip -w 10 -u ${{ vars.USERNAME }} -l NoTestRun
+
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+
+      - run: echo "This job's status is ${{ job.status }}."
