@@ -65,8 +65,6 @@ jobs:
       - name: List files in the repository
         run: |
           ls -la ${{ github.workspace }}
-          cd assets
-          ls -la
 
       # Runs a single command using the runners shell
       - name: Display the content of the server.key file
