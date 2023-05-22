@@ -82,15 +82,16 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Deployment to Salesforce
-        #run: sfdx force:source:deploy -p app -w 10 -u ${{vars.USERNAME}}
-        run: sfdx force:source:deploy -p force-app/main/default/lwc/productCard -u ${{vars.USERNAME}}
-        #working-directory: ./deploy
+        run: sfdx force:source:deploy -p app -w 10 -u ${{vars.USERNAME}}
+        #run: sfdx force:source:deploy -p force-app/main/default/lwc/productCard -u ${{vars.USERNAME}}
+        working-directory: ./deploy
         #run: sfdx force:mdapi:deploy -d force-app/main/default -u ${{vars.USERNAME}}
         # run: |
         #   sfdx force:source:convert --rootdir app --outputdir app_tmp
         #   zip -r app.zip app_tmp
         #   rm -r app_tmp
         #   sfdx force:mdapi:deploy --zipfile app.zip -w 10 -u ${{ vars.USERNAME }} -l NoTestRun
+        #   working-directory: ./deploy
 
       - name: List files in the repository
         run: |
