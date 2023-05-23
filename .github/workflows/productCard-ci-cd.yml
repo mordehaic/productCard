@@ -59,7 +59,6 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Create the server.key file from the secret variable SERVER_KEY
-        #run: echo "${{ vars.SERVER_KEY }}"  > server.key
         run: echo "${{ secrets.SERVER_KEY }}"  > server.key
 
       - name: List files in the repository
@@ -67,18 +66,8 @@ jobs:
           ls -la ${{ github.workspace }}
 
       # Runs a single command using the runners shell
-      - name: Display the content of the server.key file
-        run: cat server.key # We dont see the content of the file
-
-      # Runs a single command using the runners shell
-      #- name: "Decrypt file"
-      #  run: openssl enc -nosalt -aes-256-cbc -d -in ./assets/server.key.enc -out ./assets/server.key -base64 -K ${{ secrets.DECRYPTION_KEY }} -iv ${{ secrets.DECRYPTION_IV }}
-      # Runs a single command using the runners shell
       - name: Authentication to Salesforce
-        #run: sfdx force:auth:jwt:grant -i ${{ secrets.CONSUMER_KEY }} -f ./assets/server.key -u ${{ secrets.USERNAME }} -r ${{ secrets.INSTANCEURL }}
         run: sfdx force:auth:jwt:grant -i ${{ secrets.CONSUMER_KEY }} -f server.key -u ${{ vars.USERNAME }} -r ${{ vars.INSTANCEURL }}
-        # The next command is not working
-        #run: sfdx force:auth:jwt:grant -i ${{ secrets.CONSUMER_KEY }} -f ./assets/server.key -u ${{ secrets.USERNAME }} -r ${{ secrets.INSTANCEURL }}
 
       # Runs a set of commands using the runners shell
       - name: Deployment to Salesforce
