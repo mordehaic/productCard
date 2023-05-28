@@ -4,6 +4,5 @@
     "**/bower_components": true,
     "**/.sfdx": true
   },
-  "editor.formatOnSave": true,
-  "liveServer.settings.CustomBrowser": "chrome"
+  "open-in-browser.default": "Google Chrome"
 }
