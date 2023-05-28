@@ -75,8 +75,8 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Deployment to Salesforce
-        #run: sfdx force:source:deploy -p app -w 10 -u ${{vars.USERNAME}}
-        run: sfdx force:source:deploy -p force-app/main/default/lwc/productCard -u ${{vars.USERNAME}}
+        run: sfdx force:source:deploy -p force-app -w 10 -u ${{vars.USERNAME}}
+        #run: sfdx force:source:deploy -p force-app/main/default/lwc/productCard -u ${{vars.USERNAME}}
         #working-directory: ./deploy
         #run: sfdx force:mdapi:deploy -d force-app/main/default -u ${{vars.USERNAME}}
         # run: |
@@ -90,60 +90,60 @@ jobs:
       #   run: |
       #     ls ${{ github.workspace }}
 
-  Deploy_to_PROD:        
+  # Deploy_to_PROD:        
      
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-    environment: PROD
-    needs: Deploy_to_UAT
+  #   # The type of runner that the job will run on
+  #   runs-on: ubuntu-latest
+  #   environment: PROD
+  #   needs: Deploy_to_UAT
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
+  #   # Steps represent a sequence of tasks that will be executed as part of the job
+  #   steps:
 
-       # Check-out the repository under $GITHUB_WORKSPACE, so the job can access it
-       - uses: actions/checkout@v3
+  #      # Check-out the repository under $GITHUB_WORKSPACE, so the job can access it
+  #      - uses: actions/checkout@v3
 
-       - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
+  #      - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
  
-       - name: Set up Node.js
-         uses: actions/setup-node@v3
-         with:
-           node-version: ${{ env.NODE_VERSION }}
+  #      - name: Set up Node.js
+  #        uses: actions/setup-node@v3
+  #        with:
+  #          node-version: ${{ env.NODE_VERSION }}
        
-       # Runs a set of commands using the runners shell
-       - name: npm install, build, and test
-         run: |
-            npm install
-            npm run build --if-present
-            npm run test --if-present
+  #      # Runs a set of commands using the runners shell
+  #      - name: npm install, build, and test
+  #        run: |
+  #           npm install
+  #           npm run build --if-present
+  #           npm run test --if-present
 
-        # Runs a single command using the runners shell
-       - name: Install Salesforce CLI
-         run: npm install sfdx-cli --global
+  #       # Runs a single command using the runners shell
+  #      - name: Install Salesforce CLI
+  #        run: npm install sfdx-cli --global
 
-        # Runs a single command using the runners shell
-       - name: Create Salesforce Project
-         run: sfdx force:project:create --projectname deploy --defaultpackagedir app --manifest
+  #       # Runs a single command using the runners shell
+  #      - name: Create Salesforce Project
+  #        run: sfdx force:project:create --projectname deploy --defaultpackagedir app --manifest
 
-        # Runs a single command using the runners shell
-        #- name: Create folder ProductCard in staticresources
-        #  run: mkdir -p ./deploy/app/main/default/staticresources/ProductCard && cp -r ./build/. ./deploy/app/main/default/staticresources/ProductCard
+  #       # Runs a single command using the runners shell
+  #       #- name: Create folder ProductCard in staticresources
+  #       #  run: mkdir -p ./deploy/app/main/default/staticresources/ProductCard && cp -r ./build/. ./deploy/app/main/default/staticresources/ProductCard
 
-       - name: Create ProductCard Static Resources
-         run: sfdx force:staticresource:create -n ProductCard
-         working-directory: ./deploy/app/main/default/staticresources
+  #      - name: Create ProductCard Static Resources
+  #        run: sfdx force:staticresource:create -n ProductCard
+  #        working-directory: ./deploy/app/main/default/staticresources
 
-        # Runs a single command using the runners shell
-       - name: Create the server.key file from the secret variable SERVER_KEY
-         run: echo "${{ secrets.SERVER_KEY }}"  > server.key
+  #       # Runs a single command using the runners shell
+  #      - name: Create the server.key file from the secret variable SERVER_KEY
+  #        run: echo "${{ secrets.SERVER_KEY }}"  > server.key
 
-        # Runs a single command using the runners shell
-       - name: Authentication to Salesforce
-         run: sfdx force:auth:jwt:grant -i ${{ secrets.CONSUMER_KEY }} -f server.key -u ${{ vars.USERNAME }} -r ${{ vars.INSTANCEURL }}
+  #       # Runs a single command using the runners shell
+  #      - name: Authentication to Salesforce
+  #        run: sfdx force:auth:jwt:grant -i ${{ secrets.CONSUMER_KEY }} -f server.key -u ${{ vars.USERNAME }} -r ${{ vars.INSTANCEURL }}
 
-        # Runs a set of commands using the runners shell
-       - name: Deployment to Salesforce
-         run: sfdx force:source:deploy -p force-app -w 10 -u ${{vars.USERNAME}}
-         #run: sfdx force:source:deploy -p force-app/main/default/lwc/productCard -u ${{vars.USERNAME}}    
+  #       # Runs a set of commands using the runners shell
+  #      - name: Deployment to Salesforce
+  #        run: sfdx force:source:deploy -p force-app -w 10 -u ${{vars.USERNAME}}
+  #        #run: sfdx force:source:deploy -p force-app/main/default/lwc/productCard -u ${{vars.USERNAME}}    
        
        - run: echo "This job's status is ${{ job.status }}."
