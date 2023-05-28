@@ -146,4 +146,4 @@ jobs:
   #        run: sfdx force:source:deploy -p force-app -w 10 -u ${{vars.USERNAME}}
   #        #run: sfdx force:source:deploy -p force-app/main/default/lwc/productCard -u ${{vars.USERNAME}}    
        
-       - run: echo "This job's status is ${{ job.status }}."
+  #     - run: echo "This job's status is ${{ job.status }}."
