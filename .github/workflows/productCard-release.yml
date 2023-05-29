@@ -73,6 +73,7 @@ jobs:
         - name: Download artifact
           uses: actions/download-checkout@v3  
           with:
+            repository: .
             token: ${{ secrets.PAT }}
             ref: dev
             name: productCard-artifact
