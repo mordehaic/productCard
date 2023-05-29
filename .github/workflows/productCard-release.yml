@@ -73,8 +73,9 @@ jobs:
         - name: Download artifact
           uses: actions/download-checkout@v3  
           with:
-            repository: .
-            token: ${{ secrets.PAT }}
+            env: 
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+            #token: ${{ secrets.PAT }}
             ref: dev
             name: productCard-artifact
             path: ./deploy    
