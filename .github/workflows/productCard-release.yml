@@ -75,8 +75,12 @@ jobs:
             with:
                 name: productCard-artifact
 
-          - name: Display structure of downloaded Artifact
-            run: ls -R
+          #- name: Display structure of downloaded Artifact
+          #  run: ls -R
+          - name: Archive productCard-artifact
+            uses: theodoctor0/zip-release@master
+            with:
+                filename: artifact.zip
             
           - name: Create GitHub release
             uses: actions/create-release@v1
