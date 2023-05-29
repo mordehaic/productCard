@@ -24,7 +24,7 @@
 
 #       - name: Download artifact
 #         id: download-artifact
-#         uses: actions/download-checkout@v3  
+#         uses: actions/download-artifact@v3  
 #         with:
 #             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
 #             name: productCard-artifact
