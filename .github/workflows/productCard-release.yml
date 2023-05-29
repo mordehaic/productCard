@@ -67,13 +67,7 @@ jobs:
             cd deploy
             ls -la
 
-        - name: Download artifact
-          id: download-artifact
-          uses: actions/download-checkout@v3  
-          with:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-              name: productCard-artifact
-              path: ./deploy    
+        
 
         ## We have this error message for this actions:
         ## "Error: Unable to resolve action actions/download-checkout, repository not found"    
