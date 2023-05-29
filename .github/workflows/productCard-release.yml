@@ -74,6 +74,7 @@ jobs:
             uses: actions/download-checkout@v3  
             with:
                 name: productCard-artifact
+                path: ./deploy
 
           #- name: Display structure of downloaded Artifact
           #  run: ls -R
