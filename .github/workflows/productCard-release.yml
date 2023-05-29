@@ -79,7 +79,7 @@ jobs:
           #- name: Display structure of downloaded Artifact
           #  run: ls -R
           - name: Archive productCard-artifact
-            uses: theodoctor0/zip-release@master
+            uses: theodoctor0/zip-release@0.7.1
             with:
                 filename: artifact.zip
             
