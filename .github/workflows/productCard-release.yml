@@ -19,9 +19,9 @@ jobs:
 
       # Steps represent a sequence of tasks that will be executed as part of the job
       steps:
-      
         # Check-out the repository under $GITHUB_WORKSPACE, so the job can access it
-        - uses: actions/checkout@v3
+        - name: Checkout the repository
+          uses: actions/checkout@v3
 
         - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
 
@@ -72,7 +72,7 @@ jobs:
         ## We have this error message for this actions:
         ## "Error: Unable to resolve action actions/download-checkout, repository not found"    
         # - name: Download artifact
-        #   uses: actions/download-checkout@v3  
+        #   uses: actions/download-artifact@v3  
         #   with:
         #     env: 
         #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
@@ -94,6 +94,8 @@ jobs:
         # Steps represent a sequence of tasks that will be executed as part of the job
         steps:
           
+          # - name: Checkout the repository
+          #   uses: actions/checkout@v3
 
           - name: List files in the repository
             run: |
@@ -101,7 +103,7 @@ jobs:
 
           - name: Download artifact
             id: download-artifact
-            uses: actions/download-checkout@v3  
+            uses: actions/download-artifact@v3  
             with:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
                 name: productCard-artifact
