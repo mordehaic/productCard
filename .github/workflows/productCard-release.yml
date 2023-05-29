@@ -71,6 +71,9 @@ jobs:
         
         # Steps represent a sequence of tasks that will be executed as part of the job
         steps:
+          - name: List files in the repository
+            run: |
+              ls ${{ github.workspace }}
 
           - name: Download artifact
             uses: actions/download-checkout@v3  
