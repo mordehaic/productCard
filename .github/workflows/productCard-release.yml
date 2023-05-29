@@ -95,8 +95,10 @@ jobs:
               ls ${{ github.workspace }}
 
           - name: Download artifact
+            id: download-artifact
             uses: actions/download-checkout@v3  
             with:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
                 name: productCard-artifact
                 
           - name: Test downloaded Artifact
