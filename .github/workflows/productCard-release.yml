@@ -15,8 +15,6 @@ env:
         
 jobs:
 
- 
-
     build-project:
       name: Build project 
       # The type of runner that the job will run on
@@ -70,15 +68,17 @@ jobs:
           run: |
             ls ${{ github.workspace }}
 
-        - name: Download artifact
-          uses: actions/download-checkout@v3  
-          with:
-            env: 
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-            #token: ${{ secrets.PAT }}
-            ref: dev
-            name: productCard-artifact
-            path: ./deploy    
+        ## We have this error message for this actions:
+        ## "Error: Unable to resolve action actions/download-checkout, repository not found"    
+        # - name: Download artifact
+        #   uses: actions/download-checkout@v3  
+        #   with:
+        #     env: 
+        #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+        #     #token: ${{ secrets.PAT }}
+        #     ref: dev
+        #     name: productCard-artifact
+        #     path: ./deploy    
 
     release-project:
         name: Release project 
