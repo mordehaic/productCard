@@ -67,6 +67,8 @@ jobs:
         - name: List files in the repository
           run: |
             ls ${{ github.workspace }}
+            cd deploy
+            ls -la
 
         ## We have this error message for this actions:
         ## "Error: Unable to resolve action actions/download-checkout, repository not found"    
