@@ -1,4 +1,4 @@
-name: productCard Release
+name: Release project
 run-name: ${{ github.actor }} is launching 🚀
 
 on:
