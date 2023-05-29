@@ -115,8 +115,8 @@ jobs:
               cd deploy
               ls -la      
                 
-          # - name: Test downloaded Artifact
-          #   run: ls -R
+          - name: Test downloaded Artifact
+            run: ls -R
         #   - name: Archive productCard-artifact
         #     uses: theodoctor0/zip-release@0.7.1
         #     with:
