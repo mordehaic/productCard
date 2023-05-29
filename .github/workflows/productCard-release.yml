@@ -108,6 +108,12 @@ jobs:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
                 name: productCard-artifact
                 path: ./deploy
+
+          - name: List files in the repository
+            run: |
+              ls ${{ github.workspace }}
+              cd deploy
+              ls -la      
                 
           # - name: Test downloaded Artifact
           #   run: ls -R
