@@ -82,6 +82,7 @@ jobs:
             uses: theodoctor0/zip-release@0.7.1
             with:
                 filename: artifact.zip
+                path: ./deploy
             
         #   - name: Create GitHub release
         #     uses: actions/create-release@v1
