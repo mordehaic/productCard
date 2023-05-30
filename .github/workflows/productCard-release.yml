@@ -150,7 +150,9 @@ jobs:
               ls -la ${{ github.workspace }}
           
           - name: Search the zip file in the directory
-            run: $ sudo find . -name artifact.zip   
+            run: |
+              which find
+              find . -name artifact.zip   
 
           - name: Upload release asset
             uses: actions/upload-release-asset@v1
