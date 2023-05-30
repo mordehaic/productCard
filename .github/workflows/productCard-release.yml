@@ -87,9 +87,9 @@ jobs:
         runs-on: ubuntu-latest
         needs: build-project
 
-        permissions:
-          id-token: write
-          contents: read # default
+        # permissions:
+        #   id-token: write
+        #   contents: read # default
         
         # Steps represent a sequence of tasks that will be executed as part of the job
         steps:
@@ -105,24 +105,23 @@ jobs:
             id: download-artifact
             uses: actions/download-artifact@v3  
             with:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+                #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
                 name: productCard-artifact
                 path: ./deploy
 
-          - name: List files in the repository
-            run: |
-              ls ${{ github.workspace }}
-              cd deploy
-              ls -la      
+          # - name: List files in the repository
+          #   run: |
+          #     ls ${{ github.workspace }}
+          #     cd deploy
+          #     ls -la      
                 
-          - name: Test downloaded Artifact
-            run: ls -R
+          #- name: Test downloaded Artifact
+          #  run: ls -R
           
-          - name: Archive productCard-artifact
+          - name: Compress productCard-artifact
             uses: theodoctor0/zip-release@0.7.1
             with:
                 filename: artifact.zip
-                path: ./deploy
             
         #   - name: Create GitHub release
         #     uses: actions/create-release@v1
