@@ -137,15 +137,15 @@ jobs:
               tag_name: ${{ github.run_number }}
               release_name: Release ${{ github.run_number }}
           
-          # - name: Upload release asset
-          #   uses: actions/upload-release-asset@v1
-          #   env: 
-          #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-          #   with:
-          #     upload_url: ${{ steps.create-new-release.outputs.upload_url}}
-          #     asset_path: ./artifact.zip
-          #     asset_name: artifact-v${{ github.run_number}}.zip     
-          #     asset_content_type: application/zip
+          - name: Upload release asset
+            uses: actions/upload-release-asset@v1
+            env: 
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+            with:
+              upload_url: ${{ steps.create-new-release.outputs.upload_url}}
+              asset_path: ./artifact.zip
+              asset_name: artifact-v${{ github.run_number}}.zip     
+              asset_content_type: application/zip
             
             
         # # Runs a single command using the runners shell
