@@ -124,7 +124,6 @@ jobs:
           - name: Compress productCard-artifact
             uses: thedoctor0/zip-release@0.7.1
             with:
-                type: 'zip'
                 filename: artifact.zip
           - name: Checkout code
             uses: actions/checkout@v2  
