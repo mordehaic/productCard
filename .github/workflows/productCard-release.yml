@@ -117,7 +117,7 @@ jobs:
                 
           #- name: Test downloaded Artifact
           #  run: ls -R
-          - uses: actions/checkout@v3
+          - uses: actions/checkout@master
           - name: Compress productCard-artifact
             uses: thedoctor0/zip-release@master
             with:
