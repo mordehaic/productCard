@@ -118,10 +118,10 @@ jobs:
           #- name: Test downloaded Artifact
           #  run: ls -R
           
-          # - name: Compress productCard-artifact
-          #   uses: theodoctor0/zip-release@0.7.1
-          #   with:
-          #       filename: artifact.zip
+          - name: Compress productCard-artifact
+            uses: theodoctor0/zip-release@dev
+            with:
+                filename: artifact.zip
             
         #   - name: Create GitHub release
         #     uses: actions/create-release@v1
