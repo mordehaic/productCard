@@ -119,7 +119,7 @@ jobs:
           #  run: ls -R
           - uses: actions/checkout@dev
           - name: Compress productCard-artifact
-            uses: thedoctor0/zip-release@0.7.1
+            uses: thedoctor0/zip-release@master
             with:
                 type: 'zip'
                 filename: 'artifact.zip'
