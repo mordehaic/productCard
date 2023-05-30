@@ -123,6 +123,10 @@ jobs:
           - name: Create the archive directory
             run: mkdir archive
           
+          - name: List files in the repository
+            run: |
+              ls -la ${{ github.workspace }}
+
           - uses: actions/checkout@master
           - name: Compress productCard-artifact
             uses: thedoctor0/zip-release@0.7.1
@@ -130,10 +134,6 @@ jobs:
                 filename: artifact.zip
                 path: ./archive
           
-          - name: List files in the repository
-            run: |
-              ls -la ${{ github.workspace }}
-
           - name: Checkout code
             uses: actions/checkout@v2  
           - name: Create GitHub release
