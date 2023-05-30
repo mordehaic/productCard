@@ -121,7 +121,7 @@ jobs:
           #   with:
           #     ref: dev
           - name: Create the archive directory
-            run: mkdir archive
+            run: mkdir -p ./archive
           
           - name: List files in the repository
             run: |
