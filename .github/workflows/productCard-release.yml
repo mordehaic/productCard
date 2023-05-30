@@ -151,7 +151,6 @@ jobs:
           
           - name: Search the zip file in the directory
             run: |
-              which find
               find . -name artifact.zip   
 
           - name: Upload release asset
