@@ -153,32 +153,32 @@ jobs:
             run: |
               find . -name artifact.zip   
 
-          - name: Upload release asset
-            uses: actions/upload-release-asset@v1
-            env: 
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-            with:
-              upload_url: ${{ steps.create-new-release.outputs.upload_url}}
-              asset_path: .
-              #asset_path: ./artifact.zip 
-              #asset_name: artifact-v${{ github.run_number}}.zip     
-              asset_name: artifact.zip     
-              asset_content_type: application/zip
+          # - name: Upload release asset
+          #   uses: actions/upload-release-asset@v1
+          #   env: 
+          #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          #   with:
+          #     upload_url: ${{ steps.create-new-release.outputs.upload_url}}
+          #     asset_path: .
+          #     #asset_path: ./artifact.zip 
+          #     #asset_name: artifact-v${{ github.run_number}}.zip     
+          #     asset_name: artifact.zip     
+          #     asset_content_type: application/zip
             
             
-        # # Runs a single command using the runners shell
-        # - name: Create the server.key file from the secret variable SERVER_KEY
-        #   run: echo "${{ secrets.SERVER_KEY }}"  > server.key
+        # Runs a single command using the runners shell
+          - name: Create the server.key file from the secret variable SERVER_KEY
+            run: echo "${{ secrets.SERVER_KEY }}"  > server.key
 
-        # # Runs a single command using the runners shell
-        # - name: Authentication to Salesforce
-        #   run: sfdx force:auth:jwt:grant -i ${{ secrets.CONSUMER_KEY }} -f server.key -u ${{ vars.USERNAME }} -r ${{ vars.INSTANCEURL }}
+          # Runs a single command using the runners shell
+          - name: Authentication to Salesforce
+            run: sfdx force:auth:jwt:grant -i ${{ secrets.CONSUMER_KEY }} -f server.key -u ${{ vars.USERNAME }} -r ${{ vars.INSTANCEURL }}
 
-        # # Runs a set of commands using the runners shell
-        # - name: Deployment to Salesforce
-        #   run: sfdx force:source:deploy -p force-app -w 10 -u ${{vars.USERNAME}}
-        #   #run: sfdx force:source:deploy -p force-app/main/default/lwc/productCard -u ${{vars.USERNAME}}
-        #   #working-directory: ./deploy
+          # Runs a set of commands using the runners shell
+          - name: Deployment to Salesforce
+            run: sfdx force:source:deploy -p force-app -w 10 -u ${{vars.USERNAME}}
+            #run: sfdx force:source:deploy -p force-app/main/default/lwc/productCard -u ${{vars.USERNAME}}
+            #working-directory: ./deploy
         #   #run: sfdx force:mdapi:deploy -d force-app/main/default -u ${{vars.USERNAME}}
         #   # run: |
         #   #   sfdx force:source:convert --rootdir app --outputdir app_tmp
