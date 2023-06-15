@@ -132,6 +132,10 @@ jobs:
           - name: Checkout code
             uses: actions/checkout@v2  
           - name: Create GitHub release
+            # Adding a conditional to the release creation stage to check 
+            # if the run is the first run, and then only create a release if it is,
+            # otherwise skip that stage
+            if: github.run_number == 1
             id: create-new-release
             uses: actions/create-release@v1
             env: 
