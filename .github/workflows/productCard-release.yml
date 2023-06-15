@@ -131,7 +131,7 @@ jobs:
           
           - name: Checkout code
             uses: actions/checkout@v2  
-          - name: Create GitHub release
+          
             # Adding a conditional to the release creation stage to check 
             # if the run is the first run, and then only create a release if it is,
             # otherwise skip that stage 
@@ -144,7 +144,9 @@ jobs:
             #   tag_name: ${{ github.run_number }}
             #   release_name: Release ${{ github.run_number }}
             #   allowUpdates: true
+          
           - uses: ncipollo/release-action@v1
+            name: Create GitHub release  
             env: 
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
             with:
