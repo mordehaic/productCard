@@ -2,11 +2,11 @@ name: Release
 run-name: ${{ github.actor }} is launching 🚀
 
 on:
-  workflow_dispatch:
-  #push:
-  #   branches: [dev]
-  # pull_request:
-  #   branches: [dev]
+  #workflow_dispatch:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [dev]
 
 env:
   NODE_VERSION: "18.x" # set this to the node version to use
