@@ -135,7 +135,7 @@ jobs:
             # Adding a conditional to the release creation stage to check 
             # if the run is the first run, and then only create a release if it is,
             # otherwise skip that stage
-            if: github.run_number == 1
+            #if: github.run_number == 1
             id: create-new-release
             uses: actions/create-release@v1
             env: 
@@ -143,6 +143,7 @@ jobs:
             with:
               tag_name: ${{ github.run_number }}
               release_name: Release ${{ github.run_number }}
+              allowUpdates: true
           
           - name: List files in the repository
             run: |
