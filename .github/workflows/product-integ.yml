@@ -1,12 +1,8 @@
-name: product CI/CD
+name: product Integ
 run-name: ${{ github.actor }} is launching 🚀
 
 on:
-  #workflow_dispatch:
-   push:
-    branches: [dev]
-   pull_request:
-    branches: [dev]
+  workflow_dispatch:
 
 env:
   NODE_VERSION: "18.x" # set this to the node version to use
@@ -14,11 +10,11 @@ env:
 jobs:
 
 
-  Product-CI-CD:
+  Product-Integ:
 
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    environment: DEV
+    environment: UAT
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -58,13 +54,17 @@ jobs:
         run: sfdx force:staticresource:create -n ProductCard
         working-directory: ./deploy/app/main/default/staticresources
 
-      # # Runs a set of commands using the runners shell
-      # - name: 'Build and Deploy'
-      #   run: |
-      #     wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
-      #     mkdir sfdx-cli
-      #     tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli
-      #     ./sfdx-cli/install
+      - name: Upload product artifact
+        uses: actions/upload-artifact@v3
+        with:
+           name: product-artifact
+           path: ./deploy # or path/to/artifact
+
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+          cd deploy
+          ls -la
 
       # Runs a single command using the runners shell
       - name: Create the server.key file from the secret variable SERVER_KEY
