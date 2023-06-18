@@ -74,6 +74,10 @@ jobs:
       - name: Authentication to Salesforce
         run: sfdx force:auth:jwt:grant -i ${{ secrets.CONSUMER_KEY }} -f server.key -u ${{ vars.USERNAME }} -r ${{ vars.INSTANCEURL }}
 
+      # List org 
+      - name: List org
+        run: sfdx force:org:list
+      
       # Runs a set of commands using the runners shell
       - name: Deployment to Salesforce
         run: sfdx force:source:deploy -p force-app -w 10 -u ${{vars.USERNAME}}
