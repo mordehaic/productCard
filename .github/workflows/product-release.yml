@@ -48,7 +48,6 @@ jobs:
         # if the run is the first run, and then only create a release if it is,
         # otherwise skip that stage 
         - name: Create GitHub release
-          if: github.run_number == 1
           id: create-new-release
           uses: actions/create-release@v1
           env: 
