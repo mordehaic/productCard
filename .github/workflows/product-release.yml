@@ -36,12 +36,12 @@ jobs:
         - name: Install Salesforce CLI
           run: npm install sfdx-cli --global
     
-        - name: Download artifact
-          id: download-artifact
-          uses: actions/download-artifact@v3  
-          with:
-            #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-            name: product-artifact
+        # - name: Download artifact
+        #   id: download-artifact
+        #   uses: actions/download-artifact@v3  
+        #   with:
+        #     #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+        #     name: product-artifact
                 
           
         # Adding a conditional to the release creation stage to check 
