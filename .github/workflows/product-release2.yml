@@ -44,7 +44,7 @@ jobs:
             echo "ARTIFACT_DIR=$ARTIFACT_DIR" >> $GITHUB_ENV
                 
         - name: Download artifact
-          uses: dawidd6/action-download-artifact@v3
+          uses: dawidd6/action-download-artifact@v2
           with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
             workflow: product-integ2.yml
