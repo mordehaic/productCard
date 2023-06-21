@@ -39,16 +39,16 @@ jobs:
         - name: Environment Variables
           shell: bash
           run: |
-            ARTIFACT_SHA=$(git rev-parse HEAD)
-            BUILD_ARTIFACT=BuildArtifacts_${ARTIFACT_SHA}
-            echo "ARTIFACT_DIR=$ARTIFACT_DIR" >> $GITHUB_ENV
+            ARTIFACTS_SHA=$(git rev-parse HEAD)
+            BUILD_ARTIFACTS=BuildArtifacts_${ARTIFACTS_SHA}
+            echo "ARTIFACTS_DIR=$ARTIFACTS_DIR" >> $GITHUB_ENV
                 
         - name: Download artifact
           uses: dawidd6/action-download-artifact@v2
           with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
             workflow: product-integ2.yml
-            name: ${{ env.BUILD_ARTIFACT }} 
+            name: ${{ env.BUILD_ARTIFACTS }} 
 
         - name: Test downloaded Artifact
           run: ls -R      
