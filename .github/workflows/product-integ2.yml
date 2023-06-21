@@ -59,9 +59,9 @@ jobs:
       - name: Environment Variables
         shell: bash
         run: |
-          ARTIFACT_SHA=$(git rev-parse HEAD)
-          BUILD_ARTIFACT=BuildArtifacts_${ARTIFACT_SHA}
-          echo "ARTIFACT_DIR=$ARTIFACT_DIR" >> $GITHUB_ENV
+          ARTIFACTS_SHA=$(git rev-parse HEAD)
+          BUILD_ARTIFACTS=BuildArtifacts_${ARTIFACTS_SHA}
+          echo "ARTIFACTS_DIR=$ARTIFACTS_DIR" >> $GITHUB_ENV
 
       - name: Upload product artifact
         uses: actions/upload-artifact@v3
