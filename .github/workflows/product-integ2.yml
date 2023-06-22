@@ -64,6 +64,9 @@ jobs:
           BUILD_ARTIFACTS=BuildArtifacts_${ARTIFACTS_SHA}
           echo "ARTIFACTS_DIR=$ARTIFACTS_DIR" >> $GITHUB_ENV
 
+      - name: Display tag number
+        run: echo "${{ github.run_number }}"
+
       - name: Upload product artifact
         uses: actions/upload-artifact@v3
         with:

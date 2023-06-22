@@ -54,7 +54,9 @@ jobs:
           with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
             workflow: product-integ2.yml
-            name: ${{ env.BUILD_ARTIFACTS }} 
+            #name: ${{ env.BUILD_ARTIFACTS }}
+            tag_name: ${{ github.run_number }}
+            release_name: Release ${{ github.run_number }} 
 
         - name: Test downloaded Artifact
           run: ls -R      
