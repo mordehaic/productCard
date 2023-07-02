@@ -42,24 +42,26 @@ jobs:
         - name: Install Salesforce CLI
           run: npm install sfdx-cli --global
 
-        - name: Download artifact
-          uses: actions/download-artifact@v3
-          id: download
-          with:
-            name: Artifacts ${{ env.artifact_version }} 
-            path: path/to/artifacts
-         
-        - name: 'Echo download path'
-          run: echo ${{steps.download.outputs.download-path}}    
-
-        # # Checker download dawidd6    
+        # - Not works
+        # Error message: Unable to find any artifacts for the associated workflow
         # - name: Download artifact
-        #   uses: dawidd6/action-download-artifact@v2
+        #   uses: actions/download-artifact@v3
+        #   id: download
         #   with:
-        #     github_token: ${{ secrets.GITHUB_TOKEN }}
-        #     workflow: product-integ2.yml
-        #     tag_name: ${{ github.run_number }}
-        #     release_name: Release ${{ github.run_number }} 
+        #     name: Artifacts ${{ env.artifact_version }} 
+        #     path: path/to/artifacts
+         
+        # - name: 'Echo download path'
+        #   run: echo ${{steps.download.outputs.download-path}}    
+
+        # Checker download dawidd6    
+        - name: Download artifact
+          uses: dawidd6/action-download-artifact@v2
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            workflow: product-integ2.yml
+            tag_name: ${{ github.run_number }}
+            release_name: Release ${{ github.run_number }} 
 
         - name: Test downloaded Artifact
           run: ls -R      
