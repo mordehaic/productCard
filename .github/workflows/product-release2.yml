@@ -7,14 +7,14 @@ on:
 #     branches: [dev]
 #   pull_request: 
 #     branches: [dev]  
-  push:
-    tags:
-      - '*'
+#  push:
+#    tags:
+#      - '*'
 
 env:
   NODE_VERSION: "18.x" # set this to the node version to use
-  BUILD_ARTIFACTS:
-  ARTIFACT_SHA:
+  #BUILD_ARTIFACTS:
+  #ARTIFACT_SHA:
         
 jobs:
 
@@ -43,13 +43,7 @@ jobs:
         - name: Install Salesforce CLI
           run: npm install sfdx-cli --global
 
-        - name: Environment Variables
-          shell: bash
-          run: |
-            ARTIFACTS_SHA=$(git rev-parse HEAD)
-            BUILD_ARTIFACTS=BuildArtifacts_${ARTIFACTS_SHA}
-            echo "ARTIFACTS_DIR=$ARTIFACTS_DIR" >> $GITHUB_ENV
-                
+        # Checker download     
         - name: Download artifact
           uses: dawidd6/action-download-artifact@v2
           with:

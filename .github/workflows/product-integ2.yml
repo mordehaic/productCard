@@ -10,7 +10,7 @@ on:
 
 env:
   NODE_VERSION: "18.x" # set this to the node version to use
-  ARTIFACTS_SHA:
+  artifact_version: 1.0.6
 
 jobs:
 
@@ -70,7 +70,7 @@ jobs:
       - name: Upload product artifact
         uses: actions/upload-artifact@v3
         with:
-           name: Artifacts_${{ env.ARTIFACTS_SHA }}
+           name: Artifacts ${{ env.artifact_version }}
            path: ./deploy # or path/to/artifact
 
       - name: List files in the repository
