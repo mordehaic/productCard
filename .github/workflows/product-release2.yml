@@ -43,10 +43,14 @@ jobs:
           run: npm install sfdx-cli --global
 
         - name: Download artifact
-          uses: actions/download-artifact@v3  
+          uses: actions/download-artifact@v3
+          id: download
           with:
             name: Artifacts ${{ env.artifact_version }} 
-            path: .
+            path: path/to/artifacts
+         
+        - name: 'Echo download path'
+          run: echo ${{steps.download.outputs.download-path}}    
 
         # # Checker download dawidd6    
         # - name: Download artifact
