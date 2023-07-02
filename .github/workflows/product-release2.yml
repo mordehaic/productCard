@@ -46,7 +46,7 @@ jobs:
           uses: actions/download-artifact@v3  
           with:
             name: Artifacts ${{ env.artifact_version }} 
-            path: ./deploy/
+            path: .
 
         # # Checker download dawidd6    
         # - name: Download artifact
