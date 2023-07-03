@@ -9,8 +9,9 @@ on:
 #     branches: [dev]
 
 env:
-  NODE_VERSION: "18.x" # set this to the node version to use
-  ARTIFACTS_SHA:
+  #NODE_VERSION: "18.x" # set this to the node version to use
+  GITHUB_CONTEXT: ${{ toJSON(github) }}
+  artifact_version: 1.0.6
 
 jobs:
 
@@ -28,6 +29,14 @@ jobs:
       - uses: actions/checkout@v3
 
       - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
+
+      - run: echo "$GITHUB_CONTEXT"
+          
+      - run: echo "GITHUB_CONTEXT{"run_id"}"
+
+      #- run: echo "$GITHUB_CONTEXT{"run_id"}" >> $vars.RUNID
+          
+      - run: echo "$vars.RUNID"
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -70,7 +79,7 @@ jobs:
       - name: Upload product artifact
         uses: actions/upload-artifact@v3
         with:
-           name: Artifacts_${{ env.ARTIFACTS_SHA }}
+           name: Artifacts-${{ env.artifact_version }}
            path: ./deploy # or path/to/artifact
 
       - name: List files in the repository

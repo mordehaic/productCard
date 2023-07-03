@@ -7,13 +7,13 @@ on:
 #     branches: [dev]
 #   pull_request: 
 #     branches: [dev]  
-  push:
-    tags:
-      - '*'
+#  push:
+#    tags:
+#      - '*'
 
 env:
   NODE_VERSION: "18.x" # set this to the node version to use
-  BUILD_ARTIFACTS:
+  artifact_version: 1.0.6
         
 jobs:
 
@@ -42,21 +42,32 @@ jobs:
         - name: Install Salesforce CLI
           run: npm install sfdx-cli --global
 
-        - name: Environment Variables
-          shell: bash
-          run: |
-            ARTIFACTS_SHA=$(git rev-parse HEAD)
-            BUILD_ARTIFACTS=BuildArtifacts_${ARTIFACTS_SHA}
-            echo "ARTIFACTS_DIR=$ARTIFACTS_DIR" >> $GITHUB_ENV
-                
+        #- Not works
+        #Error message: Unable to find any artifacts for the associated workflow
         - name: Download artifact
-          uses: dawidd6/action-download-artifact@v2
+          uses: actions/download-artifact@v3
+          id: download
           with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            workflow: product-integ2.yml
-            #name: ${{ env.BUILD_ARTIFACTS }}
-            tag_name: ${{ github.run_number }}
-            release_name: Release ${{ github.run_number }} 
+            #github_token: ${{ secrets.GITHUB_TOKEN }}
+            #workflow: product-integ2.yml
+            name: Artifacts-${{ env.artifact_version }} 
+         
+        - name: 'Echo download path'
+          run: echo ${{steps.download.outputs.download-path}}    
+
+        # Checker download dawidd6    
+        # - name: Download artifact
+        #   uses: dawidd6/action-download-artifact@v2
+        #   id: download
+        #   with:
+        #     github_token: ${{ secrets.GITHUB_TOKEN }}
+        #     workflow: product-integ2.yml
+        #     name: Artifacts ${{ env.artifact_version }}
+        #     path: path/to/artifacts
+           
+
+        - name: 'Echo download path'
+          run: echo ${{steps.download.outputs.download-path}}   
 
         - name: Test downloaded Artifact
           run: ls -R      
@@ -64,22 +75,23 @@ jobs:
         # Adding a conditional to the release creation stage to check 
         # if the run is the first run, and then only create a release if it is,
         # otherwise skip that stage 
+        # - name: Create GitHub release
+        #   id: create-new-release
+        #   uses: ncipollo/release-action@v1
+        #   env: 
+        #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+        #   with:
+        #     artifacts: Artifacts_${{ env.ARTIFACT_SHA }}
+        #     replacesArtifacts: false
+        #     token: ${{ secrets.GITHUB_TOKEN }}
+        #     allowUpdates: true
         - name: Create GitHub release
-          id: create-new-release
-          uses: ncipollo/release-action@v1
+          uses: actions/create-release@v1
           env: 
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
           with:
-            artifacts: Artifacts_${{ env.ARTIFACT_SHA }}
-            replacesArtifacts: false
-            token: ${{ secrets.GITHUB_TOKEN }}
-            allowUpdates: true
-          # uses: actions/create-release@v1
-          # env: 
-          #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-          # with:
-          #   tag_name: ${{ github.run_number }}
-          #   release_name: Release ${{ github.run_number }}
+            tag_name: ${{ github.run_number }}
+            release_name: Release ${{ github.run_number }}
             
         # Runs a single command using the runners shell
         - name: Create the server.key file from the secret variable SERVER_KEY
@@ -94,6 +106,7 @@ jobs:
           run: sfdx force:source:deploy -p force-app -w 10 -u ${{vars.USERNAME}}
         
         - run: echo "This job's status is ${{ job.status }}."
+        
      
         
   
