@@ -1,8 +1,14 @@
 name: test
 
+
 on:
     workflow_dispatch:
-    
+
+env:  
+    Tests:   
+    Failures: 
+    action_state:
+
 jobs: 
     Test:
         runs-on: ubuntu-latest      
@@ -12,7 +18,7 @@ jobs:
               shell: bash
               run: |
 
-                # define variables      
+                # define variables     
                 tests=16
                 failures=2
 
