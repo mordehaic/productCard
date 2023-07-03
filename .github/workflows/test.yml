@@ -27,7 +27,7 @@ jobs:
                 echo "Failures=$failures" >> $GITHUB_ENV
 
                 # retrieve these GitHub ENV variables
-                echo "${{ env.failures }} out of ${{ env.tests }} tests failed on CI"
+                echo "${{ env.Failures }} out of ${{ env.Tests }} tests failed on CI"
 
 
          
@@ -35,6 +35,7 @@ jobs:
               id: step_one
               run: |
                 echo "action_state=yellow" >> "$GITHUB_ENV"
+            
             - name: Use the value
               id: step_two
               run: |
