@@ -70,7 +70,7 @@ jobs:
       - name: Upload product artifact
         uses: actions/upload-artifact@v3
         with:
-           name: Artifacts ${{ env.artifact_version }}
+           name: Artifacts-${{ env.artifact_version }}
            path: ./deploy # or path/to/artifact
 
       - name: List files in the repository

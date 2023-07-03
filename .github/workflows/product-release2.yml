@@ -48,10 +48,9 @@ jobs:
           uses: actions/download-artifact@v3
           id: download
           with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            workflow: product-integ2.yml
-            name: Artifacts ${{ env.artifact_version }} 
-            path: path/to/artifacts
+            #github_token: ${{ secrets.GITHUB_TOKEN }}
+            #workflow: product-integ2.yml
+            name: Artifacts-${{ env.artifact_version }} 
          
         - name: 'Echo download path'
           run: echo ${{steps.download.outputs.download-path}}    
