@@ -32,7 +32,9 @@ jobs:
 
       - run: echo "$GITHUB_CONTEXT"
           
-      - run: echo "$GITHUB_CONTEXT{"run_id"}" >> $vars.RUNID
+      - run: echo "$GITHUB_CONTEXT{"run_id"}"
+
+      #- run: echo "$GITHUB_CONTEXT{"run_id"}" >> $vars.RUNID
           
       - run: echo "$vars.RUNID"
 
