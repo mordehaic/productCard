@@ -30,11 +30,11 @@ jobs:
 
       - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
 
-      - run: |
-          echo "$GITHUB_CONTEXT"
-          echo "$GITHUB_CONTEXT"
-          echo "$GITHUB_CONTEXT.run_id" >> $vars.RUNID
-          echo "${{vars.RUNID}}"
+      - run: echo "$GITHUB_CONTEXT"
+          
+      - run: echo "$GITHUB_CONTEXT.run_id" >> $vars.RUNID
+          
+      - run: echo "${{vars.RUNID}}"
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
