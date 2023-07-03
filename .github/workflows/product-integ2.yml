@@ -9,7 +9,8 @@ on:
 #     branches: [dev]
 
 env:
-  NODE_VERSION: "18.x" # set this to the node version to use
+  #NODE_VERSION: "18.x" # set this to the node version to use
+  GITHUB_CONTEXT: ${{ toJSON(github) }}
   artifact_version: 1.0.6
 
 jobs:
@@ -29,6 +30,8 @@ jobs:
 
       - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
 
+      - run: echo "$GITHUB_CONTEXT"
+      
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
