@@ -5,8 +5,8 @@ on:
     workflow_dispatch:
 
 env:  
-    Tests:   
-    Failures: 
+    tests:   
+    failures: 
     action_state:
 
 jobs: 
