@@ -73,7 +73,7 @@ jobs:
           BUILD_ARTIFACTS=BuildArtifacts_${ARTIFACTS_SHA}
           echo "ARTIFACTS_DIR=$ARTIFACTS_DIR" >> $GITHUB_ENV
 
-      - name: Display tag number
+      - name: Display run number
         run: echo "${{ github.run_number }}"
 
       - name: Upload product artifact
