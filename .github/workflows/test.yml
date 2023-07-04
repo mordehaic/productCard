@@ -45,5 +45,14 @@ jobs:
               run:  |
                 echo "$GITHUB_RUN_ID" 
                 echo "Name of the workflow: $GITHUB_WORKFLOW"
+
+            - name: Set color
+              id: random-color-generator
+              run: echo "SELECTED_COLOR=green" >> "$GITHUB_OUTPUT"
+
+            - name: Get color
+              run: echo "The selected color is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
+        
+            
                 
                 
