@@ -43,8 +43,8 @@ jobs:
                 echo "${{ env.action_state }}" # This will output 'yellow'
             - name: Get the run_id value
               run:  |
-                echo "RUNID = $GITHUB_RUN_ID" >> "$vars.RUNID"
-                echo "${{ vars.RUNID }}"
+                echo "$GITHUB_RUN_ID"
+                echo "github['run_id']" 
                 echo "Name of the workflow: $GITHUB_WORKFLOW"
 
             - name: Set color
