@@ -44,8 +44,10 @@ jobs:
             - name: Get the run_id value
               run:  |
                 echo "$GITHUB_RUN_ID"
-                echo "workflow run_id: ${{github.run_id}}" 
+                echo "workflow run_id: ${{github.run_id}}"
+                echo "workflow run_id: ${{github['run_id']}}"  
                 echo "workflow name: ${{github.workflow}}"
+                echo "workflow name: ${{github['workflow']}}"
                 echo "Name of the workflow: $GITHUB_WORKFLOW"
 
             - name: Set color
