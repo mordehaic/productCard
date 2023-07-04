@@ -1,11 +1,13 @@
 name: test
 
+
 on:
     workflow_dispatch:
 
-env:
-    Tests:
-    Failures:
+env:  
+    Tests:   
+    Failures: 
+    action_state:
 
 jobs: 
     Test:
@@ -16,7 +18,7 @@ jobs:
               shell: bash
               run: |
 
-                # define variables      
+                # define variables     
                 tests=16
                 failures=2
 
@@ -25,4 +27,16 @@ jobs:
                 echo "Failures=$failures" >> $GITHUB_ENV
 
                 # retrieve these GitHub ENV variables
-                echo "${{ env.Failures }} out of ${{ env.Tests }} tests failed on CI"
+                echo "${{ env.failures }} out of ${{ env.tests }} tests failed on CI"
+
+
+         
+            - name: Set the value
+              id: step_one
+              run: |
+                echo "action_state=yellow" >> "$GITHUB_ENV"
+            
+            - name: Use the value
+              id: step_two
+              run: |
+                echo "${{ env.action_state }}" # This will output 'yellow'
