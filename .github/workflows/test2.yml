@@ -17,12 +17,15 @@ jobs:
       steps:
       - name: Use variables
         run: |
-          echo "repository variable : $REPOSITORY_VAR"
-          echo "organization variable : $ORGANIZATION_VAR"
-          echo "overridden variable : $OVERRIDE_VAR"
-          echo "variable from shell environment : $env_var"
-        # env:
-        #   REPOSITORY_VAR: ${{ vars.REPOSITORY_VAR }}
+          echo "environment variable : $ENVIRONMENT_DEV"
+        # run: |
+        #   echo "repository variable : $REPOSITORY_VAR"
+        #   echo "organization variable : $ORGANIZATION_VAR"
+        #   echo "overridden variable : $OVERRIDE_VAR"
+        #   echo "variable from shell environment : $env_var"
+        env:
+            ENVIRONMENT_DEV: ${{ vars.ENVIRONMENT_DEV }}  
+        #   ENVIRONMENT_DEV
         #   ORGANIZATION_VAR: ${{ vars.ORGANIZATION_VAR }}
         #   OVERRIDE_VAR: ${{ vars.OVERRIDE_VAR }}
           
