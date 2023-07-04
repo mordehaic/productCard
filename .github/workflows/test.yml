@@ -43,6 +43,6 @@ jobs:
                 echo "${{ env.action_state }}" # This will output 'yellow'
             - name: Get the run_id value
               run:  |
-                echo "myObject = JSON.parse(GITHUB_CONTEXT)" ;   
-                echo "myObject["run_id"]"
+                echo "$GITHUB_RUN_ID" 
+                
                 
