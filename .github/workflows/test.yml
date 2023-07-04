@@ -17,7 +17,6 @@ jobs:
             - name: Set and Retrieve Github ENV variables
               shell: bash
               run: |
-
                 # define variables     
                 tests=16
                 failures=2
