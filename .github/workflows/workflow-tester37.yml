@@ -26,4 +26,4 @@ jobs:
         id: local-action
         uses: ./.github/actions/local-action
         with:
-          name: ${{ inputs.username }}
+          name: ${{ inputs.username }} 
