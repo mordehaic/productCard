@@ -1,14 +1,9 @@
 name: test
-
-
 on:
     workflow_dispatch:
 
 env:  
-    Tests:   
-    Failures: 
     action_state:
-    runid:
     GITHUB_CONTEXT: ${{ toJSON(github) }}        
 
 jobs: 
@@ -16,22 +11,6 @@ jobs:
         runs-on: ubuntu-latest      
     
         steps:
-            - name: Set and Retrieve Github ENV variables
-              shell: bash
-              run: |
-                # define variables     
-                tests=16
-                failures=2
-
-                # set them as GitHub ENV variables
-                echo "Tests=$tests" >> $GITHUB_ENV
-                echo "Failures=$failures" >> $GITHUB_ENV
-
-                # retrieve these GitHub ENV variables
-                echo "${{ env.failures }} out of ${{ env.tests }} tests failed on CI"
-
-
-         
             - name: Set the value
               id: step_one
               run: |
@@ -41,6 +20,7 @@ jobs:
               id: step_two
               run: |
                 echo "${{ env.action_state }}" # This will output 'yellow'
+            
             - name: Get the run_id value
               run:  |
                 echo "$GITHUB_RUN_ID"
