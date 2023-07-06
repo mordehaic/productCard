@@ -1,4 +1,4 @@
-name: Test 37 #Related to https://stackoverflow.com/questions/72551501/using-if-statements-in-actions
+name: workflow test 37 #Related to https://stackoverflow.com/questions/72551501/using-if-statements-in-actions
 
 on:
   workflow_dispatch:
