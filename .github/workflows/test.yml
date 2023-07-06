@@ -4,11 +4,13 @@ on:
 
 env:  
     action_state:
-    GITHUB_CONTEXT: ${{ toJSON(github) }}        
+    GITHUB_CONTEXT: ${{ toJSON(github) }}
+         
 
 jobs: 
     Test:
-        runs-on: ubuntu-latest      
+        runs-on: ubuntu-latest
+        environment: DEV      
     
         steps:
             - name: Set the value
