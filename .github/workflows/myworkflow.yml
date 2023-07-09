@@ -17,13 +17,11 @@ jobs:
         - name: Set Environment Variables
           uses: ./.github/actions/setvars
           with:
-            varFilePath: ./.github/variables/myvars.env
+            varFilePath: ./.github/variables/myvars2.env
 
         - name: Update environment file with 'run_id' value
           run: echo "runid = ${{github['run_id']}}"  > ./.github/variables/myvars2.env
           
         - name: Display Environment variables
           run: |
-            echo "${{env.MYVAR1}}"  
-            echo "${{env.MYVAR2}}" 
             echo "${{env.run_id}}"  
