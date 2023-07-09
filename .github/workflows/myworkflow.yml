@@ -21,10 +21,10 @@ jobs:
         
         - name: Update environment file with 'run_id' value    
           run: |
-            echo "runid = ${{github['run_id']}}"  >> ./.github/variables/myvars.env
+            echo "RUNID = ${{github['run_id']}}"  >> ./.github/variables/myvars.env
 
         - name: Display Environment variables
           run: |
             echo "${{env.MYVAR1}}"  
             echo "${{env.MYVAR2}}"
-            echo "${{env.runid}}"   
+            echo "${{env.RUNID}}"   
