@@ -11,8 +11,7 @@ runs:
 
     - name: Update environment file with 'run_id' value    
       run: |
-          echo "${{github['run_id']}} > ${{vars.RUNID}}"
-          echo ${{vars.RUNID}}
+          echo "${{vars.RUNID}} = ${{github['run_id']}}"  >> ./.github/variables/myvars.env
       shell: bash
 
     - run: |

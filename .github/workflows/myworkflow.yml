@@ -19,9 +19,9 @@ jobs:
           with:
             varFilePath: ./.github/variables/myvars.env
         
-        - name: Update environment file with 'run_id' value    
-          run: |
-            echo "RUNID = ${{github['run_id']}}"  >> ./.github/variables/myvars.env
+        # - name: Update environment file with 'run_id' value    
+        #   run: |
+        #     echo "RUNID = ${{github['run_id']}}"  >> ./.github/variables/myvars.env
 
         - name: Display Environment variables
           run: |
