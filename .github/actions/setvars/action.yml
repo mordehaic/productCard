@@ -9,10 +9,10 @@ runs:
   using: "composite"
   steps:
 
-    - name: Update environment file with 'run_id' value    
-      run: |
-        echo "RUNID = ${{github['run_id']}}"  >> ./.github/variables/myvars.env
-      shell: bash 
+    # - name: Update environment file with 'run_id' value    
+    #   run: |
+    #     echo "RUNID = ${{github['run_id']}}"  >> ./.github/variables/myvars.env
+    #   shell: bash 
 
     - name: Display environment file with 'run_id' value    
       run: |
