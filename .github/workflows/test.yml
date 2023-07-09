@@ -23,21 +23,21 @@ jobs:
               run: |
                 echo "${{ env.action_state }}" # This will output 'yellow'
             
-            - name: Get the run_id value
-              run:  |
-                echo "$GITHUB_RUN_ID"
-                echo "workflow run_id: ${{github.run_id}}"
-                echo "workflow run_id: ${{github['run_id']}}"  
-                echo "workflow name: ${{github.workflow}}"
-                echo "workflow name: ${{github['workflow']}}"
-                echo "Name of the workflow: $GITHUB_WORKFLOW"
+            # - name: Get the run_id value
+            #   run:  |
+            #     echo "$GITHUB_RUN_ID"
+            #     echo "workflow run_id: ${{github.run_id}}"
+            #     echo "workflow run_id: ${{github['run_id']}}"  
+            #     echo "workflow name: ${{github.workflow}}"
+            #     echo "workflow name: ${{github['workflow']}}"
+            #     echo "Name of the workflow: $GITHUB_WORKFLOW"
 
-            - name: Set color
-              id: random-color-generator
-              run: echo "SELECTED_COLOR=green" >> "$GITHUB_OUTPUT"
+            # - name: Set color
+            #   id: random-color-generator
+            #   run: echo "SELECTED_COLOR=green" >> "$GITHUB_OUTPUT"
 
-            - name: Get color
-              run: echo "The selected color is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
+            # - name: Get color
+            #   run: echo "The selected color is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
         
             
                 
