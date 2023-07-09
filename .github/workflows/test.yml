@@ -28,7 +28,9 @@ jobs:
                 echo "${{env.runid}}"
 
             - name: Update environment file with 'run_id' value
-              run: echo "runid = ${{github['run_id']}}"  > ./.github/variables/myvars2.env
+              run: |
+                echo "runid = ${{github['run_id']}}"  > file
+                cat file
         
             
             # - name: Get the run_id value
