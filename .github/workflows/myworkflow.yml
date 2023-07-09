@@ -3,9 +3,8 @@ on:
     workflow_dispatch:
 
 env:  
-    action_state:
-    MYVAR1:
-    MYVAR2:        
+    #MYVAR1:
+    #MYVAR2:        
     GITHUB_CONTEXT: ${{ toJSON(github) }}
          
 jobs: 
