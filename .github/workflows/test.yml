@@ -29,7 +29,21 @@ jobs:
               run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
             
             - name: Display GITHUB_SHA_SHORT
-              run: echo $GITHUB_SHA_SHORT    
+              run: echo $GITHUB_SHA_SHORT
+              
+              
+            - name: run action - 1st
+              uses: actionOrg/actionRepo@master
+              with:
+                input: "${{env.runid}}"  # the input value is "env value 01"
+        
+            - name: update env
+              run: echo "::set-env name=RUNID::${{env.runid}}"
+      
+            - name: run action - 2nd
+              uses: actionOrg/actionRepo@master
+              with:
+                input: ${{ vars.runid }}  # the input value is "env value 02"  
             
             # - name: Get the run_id value
             #   run:  |
