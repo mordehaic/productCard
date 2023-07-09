@@ -27,11 +27,9 @@ jobs:
                 echo "${{ env.action_state }}" # This will output 'yellow'
                 echo "${{env.runid}}"
 
-            - name: Create the server.key file from the secret variable SERVER_KEY
+            - name: Update environment file with 'run_id' value
               run: echo "runid = ${{github['run_id']}}"  > ./.github/variables/myvars2.env
         
-            - name: update env
-              run: echo "::set-env name=RUNID::${{env.runid}}" 
             
             # - name: Get the run_id value
             #   run:  |
