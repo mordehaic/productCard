@@ -2,9 +2,8 @@ name: test
 on:
     workflow_dispatch:
 
-env:  
-    action_state:
-    GITHUB_CONTEXT: ${{ toJSON(github) }}
+# env:  
+#     GITHUB_CONTEXT: ${{ toJSON(github) }}
          
 
 jobs: 
