@@ -21,6 +21,12 @@ jobs:
               id: step_two
               run: |
                 echo "${{ env.action_state }}" # This will output 'yellow'
+
+            - name: Set env
+              run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
+            
+            - name: Display GITHUB_SHA_SHORT
+              run: echo $GITHUB_SHA_SHORT    
             
             # - name: Get the run_id value
             #   run:  |
