@@ -8,6 +8,12 @@ inputs:
 runs:
   using: "composite"
   steps:
+
+    - name: Update environment file with 'run_id' value    
+      run: |
+        echo "RUNID = ${{github['run_id']}}"  >> ./.github/variables/myvars.env
+      shell: bash
+        
     - run: |
         sed "" ${{ inputs.varFilePath }} >> $GITHUB_ENV
       shell: bash
