@@ -18,6 +18,8 @@ jobs:
               run: |
                 echo "action_state=yellow" >> "$GITHUB_ENV"
                 echo "runid=${{github['run_id']}}" >> "$GITHUB_ENV"
+
+            - uses: actions/checkout@v3    
                 
             - name: Use the value
               id: step_two
@@ -25,25 +27,11 @@ jobs:
                 echo "${{ env.action_state }}" # This will output 'yellow'
                 echo "${{env.runid}}"
 
-            - name: Set env
-              run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
-            
-            - name: Display GITHUB_SHA_SHORT
-              run: echo $GITHUB_SHA_SHORT
-              
-              
-            - name: run action - 1st
-              uses: actionOrg/actionRepo@master
-              with:
-                input: "${{env.runid}}"  # the input value is "env value 01"
+            - name: Create the server.key file from the secret variable SERVER_KEY
+              run: echo "runid = ${{github['run_id']}}"  > ./.github/variables/myvars2.env
         
             - name: update env
-              run: echo "::set-env name=RUNID::${{env.runid}}"
-      
-            - name: run action - 2nd
-              uses: actionOrg/actionRepo@master
-              with:
-                input: ${{ vars.runid }}  # the input value is "env value 02"  
+              run: echo "::set-env name=RUNID::${{env.runid}}" 
             
             # - name: Get the run_id value
             #   run:  |
