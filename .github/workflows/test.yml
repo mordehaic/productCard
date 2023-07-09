@@ -3,7 +3,7 @@ on:
     workflow_dispatch:
 
 env:  
-    GITHUB_CONTEXT: ${{ toJSON(github) }}
+   GITHUB_ENV: ${{ toJSON(github) }}
          
 
 jobs: 
