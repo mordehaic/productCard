@@ -82,6 +82,8 @@ jobs:
            name: Artifacts-${{ env.artifact_version }}
            path: ./deploy # or path/to/artifact
 
+      - name: Display the run_id of the workflow to download the right artifact in the release workflow
+        run: echo "workflow run_id ${{github.run_id}}"
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
