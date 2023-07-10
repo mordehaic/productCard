@@ -61,7 +61,7 @@ jobs:
         
         - name: Download artifact with command line gh run download run_id    
           run: |
-            gh run download ${{vars.RUN_ID}}
+            gh run download "${{vars.RUN_ID}}"
           shell: bash
 
         # - name: Download artifact with command line gh run download run_id    
