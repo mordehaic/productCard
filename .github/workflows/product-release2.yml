@@ -13,7 +13,6 @@ on:
 
 env:
   NODE_VERSION: "18.x" # set this to the node version to use
-  artifact_version: 1.0.6
   GH_TOKEN: ${{ github.token }}
         
 jobs:
@@ -68,27 +67,12 @@ jobs:
         #   with:
         #     github_token: ${{ secrets.GITHUB_TOKEN }}
         #     workflow: product-integ2.yml
-        #     name: Artifacts ${{ env.artifact_version }}
+        #     name: Artifacts-${{ env.artifact_version }}
         #     path: path/to/artifacts
         
         
         - name: Test downloaded Artifact
           run: ls -R      
-        
-        # Adding a conditional to the release creation stage to check 
-        # if the run is the first run, and then only create a release if it is,
-        # otherwise skip that stage 
-        # - name: Create GitHub release
-        #   id: create-new-release
-        #   uses: ncipollo/release-action@v1
-        #   env: 
-        #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-        #   with:
-        #     artifacts: Artifacts_${{ env.ARTIFACT_SHA }}
-        #     replacesArtifacts: false
-        #     token: ${{ secrets.GITHUB_TOKEN }}
-        #     allowUpdates: true
-
 
         - name: Create GitHub release
           uses: actions/create-release@v1
@@ -111,7 +95,3 @@ jobs:
           run: sfdx force:source:deploy -p force-app -w 10 -u ${{vars.USERNAME}}
         
         - run: echo "This job's status is ${{ job.status }}."
-        
-     
-        
-  
