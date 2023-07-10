@@ -14,6 +14,7 @@ on:
 env:
   NODE_VERSION: "18.x" # set this to the node version to use
   artifact_version: 1.0.6
+  GH_TOKEN: ${{ github.token }}
         
 jobs:
 
@@ -88,7 +89,7 @@ jobs:
         #     token: ${{ secrets.GITHUB_TOKEN }}
         #     allowUpdates: true
 
-        
+
         - name: Create GitHub release
           uses: actions/create-release@v1
           env: 
