@@ -55,7 +55,7 @@ jobs:
 
         - name: Download artifact with command line gh run download run_id    
           run: |
-            gh run download ${{vars.RUN_ID}}
+            gh run download ${{vars.RUN_ID}} -n Artifacts-1.0.7
           shell: bash
         
         # Checker download dawidd6
