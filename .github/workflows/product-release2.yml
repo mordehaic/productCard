@@ -53,10 +53,15 @@ jobs:
         #     #workflow: product-integ2.yml
         #     name: Artifacts-${{ env.artifact_version }} 
 
+        - name: Add variable value for the current repository in an interactive prompt    
+          run: |
+            gh variable set RUN_ID
+          shell: bash
 
+        
         - name: Download artifact with command line gh run download run_id    
           run: |
-            gh run download '${{vars.RUN_ID}}'
+            gh run download ${{vars.RUN_ID}}
           shell: bash
 
         # - name: Download artifact with command line gh run download run_id    
