@@ -42,20 +42,25 @@ jobs:
         - name: Install Salesforce CLI
           run: npm install sfdx-cli --global
 
-        #- Not works
-        #Error message: Unable to find any artifacts for the associated workflow
-        - name: Download artifact
-          uses: actions/download-artifact@v3
-          id: download
-          with:
-            #github_token: ${{ secrets.GITHUB_TOKEN }}
-            #workflow: product-integ2.yml
-            name: Artifacts-${{ env.artifact_version }} 
-         
-        - name: 'Echo download path'
-          run: echo ${{steps.download.outputs.download-path}}    
+        # #- Not works
+        # #Error message: Unable to find any artifacts for the associated workflow
+        # - name: Download artifact
+        #   uses: actions/download-artifact@v3
+        #   id: download
+        #   with:
+        #     #github_token: ${{ secrets.GITHUB_TOKEN }}
+        #     #workflow: product-integ2.yml
+        #     name: Artifacts-${{ env.artifact_version }} 
 
-        # Checker download dawidd6    
+
+        - name: Download artifact with command line gh run download run_id    
+          run: |
+            gh run download ${{vars.RUN_ID}}
+          shell: bash
+        
+        # Checker download dawidd6
+        # It works 
+        # But because it's not a standard actions of github, not recommended because problem of security.   
         # - name: Download artifact
         #   uses: dawidd6/action-download-artifact@v2
         #   id: download
@@ -64,11 +69,8 @@ jobs:
         #     workflow: product-integ2.yml
         #     name: Artifacts ${{ env.artifact_version }}
         #     path: path/to/artifacts
-           
-
-        - name: 'Echo download path'
-          run: echo ${{steps.download.outputs.download-path}}   
-
+        
+        
         - name: Test downloaded Artifact
           run: ls -R      
         
@@ -85,6 +87,8 @@ jobs:
         #     replacesArtifacts: false
         #     token: ${{ secrets.GITHUB_TOKEN }}
         #     allowUpdates: true
+
+        
         - name: Create GitHub release
           uses: actions/create-release@v1
           env: 
