@@ -11,7 +11,7 @@ on:
 env:
   NODE_VERSION: "18.x" # set this to the node version to use
   GITHUB_CONTEXT: ${{ toJSON(github) }}
-  artifact_version: 1.0.6
+  artifact_version: 1.0.7
 
 jobs:
 

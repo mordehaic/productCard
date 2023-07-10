@@ -1,6 +1,10 @@
 name: test
 on:
     workflow_dispatch:
+      inputs:
+        runid:
+           required: false
+           type: string
 
 env:
    RUNID:  
@@ -32,7 +36,13 @@ jobs:
                 echo "runid = ${{github['run_id']}}"  > file
                 cat file
         
-            
+            - name: Inputs runid (workflow call)
+              if: ${{ inputs.runid }} != ''
+              run: echo ${{ inputs.runid }}
+
+            - name: Set runid variable 
+              run: echo "${{vars.runid}}" 
+
             # - name: Get the run_id value
             #   run:  |
             #     echo "$GITHUB_RUN_ID"
