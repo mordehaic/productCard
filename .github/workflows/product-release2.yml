@@ -13,7 +13,8 @@ on:
 
 env:
   NODE_VERSION: "18.x" # set this to the node version to use
-  GH_TOKEN: ${{ github.token }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+  #GH_TOKEN: ${{ github.token }}
         
 jobs:
 
@@ -53,15 +54,15 @@ jobs:
         #     name: Artifacts-${{ env.artifact_version }} 
 
 
-        # - name: Download artifact with command line gh run download run_id    
-        #   run: |
-        #     gh run download ${{vars.RUN_ID}} -n Artifacts-1.0.7
-        #   shell: bash
-
         - name: Download artifact with command line gh run download run_id    
           run: |
-            gh run download
+            gh run download ${{vars.RUN_ID}}
           shell: bash
+
+        # - name: Download artifact with command line gh run download run_id    
+        #   run: |
+        #     gh run download
+        #   shell: bash
         
         # Checker download dawidd6
         # It works 
