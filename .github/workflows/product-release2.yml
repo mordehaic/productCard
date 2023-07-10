@@ -54,15 +54,15 @@ jobs:
         #     name: Artifacts-${{ env.artifact_version }} 
 
 
-        - name: Download artifact with command line gh run download run_id    
-          run: |
-            gh run download ${{vars.RUN_ID}}
-          shell: bash
-
         # - name: Download artifact with command line gh run download run_id    
         #   run: |
-        #     gh run download
+        #     gh run download ${{vars.RUN_ID}}
         #   shell: bash
+
+        - name: Download artifact with command line gh run download run_id    
+          run: |
+            gh run download 5508823589
+          shell: bash
         
         # Checker download dawidd6
         # It works 
