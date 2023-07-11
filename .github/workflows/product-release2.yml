@@ -14,7 +14,7 @@ on:
 env:
   NODE_VERSION: "18.x" # set this to the node version to use
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-  #GH_TOKEN: ${{ github.token }}
+  GITHUB_CONTEXT: ${{ toJSON(github) }}
         
 jobs:
 
@@ -92,6 +92,9 @@ jobs:
 
         - name: Create GitHub release
           uses: actions/create-release@v1
+          # Adding a conditional to the release creation stage to check 
+          # if the run is the first run, and then only create a release if it is,
+          # otherwise skip that stage 
           if: github.run_number == 1
           env: 
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
