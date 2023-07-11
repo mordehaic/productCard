@@ -90,12 +90,12 @@ jobs:
         - name: Test downloaded Artifact
           run: ls -R      
 
+        # Adding a conditional to the release creation stage to check 
+        # if the run is the first run(if github.run_number == 1), and then only create a release if it is,
+        # otherwise skip that stage   
         - name: Create GitHub release
           uses: actions/create-release@v1
-          # Adding a conditional to the release creation stage to check 
-          # if the run is the first run, and then only create a release if it is,
-          # otherwise skip that stage 
-          if: github.run_number == 1
+          
           env: 
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
           with:
