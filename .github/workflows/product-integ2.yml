@@ -3,15 +3,11 @@ run-name: ${{ github.actor }} is launching 🚀
 
 on:
   workflow_dispatch:
-#   push:
-#     branches: [dev]
-#   pull_request:
-#     branches: [dev]
 
 env:
   NODE_VERSION: "18.x" # set this to the node version to use
   GITHUB_CONTEXT: ${{ toJSON(github) }}
-  artifact_version: 1.0.7
+  artifact_version: ${{ github.ref_name }}  # ref_name = tag number created on github
 
 jobs:
 
@@ -58,16 +54,6 @@ jobs:
         run: sfdx force:staticresource:create -n ProductCard
         working-directory: ./deploy/app/main/default/staticresources
 
-      - name: Environment Variables
-        shell: bash
-        run: |
-          ARTIFACTS_SHA=$(git rev-parse HEAD)
-          BUILD_ARTIFACTS=BuildArtifacts_${ARTIFACTS_SHA}
-          echo "ARTIFACTS_DIR=$ARTIFACTS_DIR" >> $GITHUB_ENV
-
-      - name: Display run number
-        run: echo "${{ github.run_number }}"
-
       - name: Upload product artifact
         uses: actions/upload-artifact@v3
         with:
@@ -76,6 +62,7 @@ jobs:
 
       - name: Display the run_id of the workflow to download the right artifact in the release workflow
         run: echo "workflow run_id ${{github.run_id}}"
+
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}

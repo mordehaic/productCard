@@ -2,14 +2,7 @@ name: product-release2
 run-name: ${{ github.actor }} is launching 🚀
 
 on:
-  workflow_dispatch:   ## To prevent the run of the script after pushing it to the repo
-#   push:
-#     branches: [dev]
-#   pull_request: 
-#     branches: [dev]  
-#  push:
-#    tags:
-#      - '*'
+  workflow_dispatch:   # To prevent automatic execution of the pipeline when push on a remote branch
 
 env:
   NODE_VERSION: "18.x" # set this to the node version to use
@@ -42,64 +35,24 @@ jobs:
         # Runs a single command using the runners shell
         - name: Install Salesforce CLI
           run: npm install sfdx-cli --global
-
-        # #- Not works
-        # #Error message: Unable to find any artifacts for the associated workflow
-        # - name: Download artifact
-        #   uses: actions/download-artifact@v3
-        #   id: download
-        #   with:
-        #     #github_token: ${{ secrets.GITHUB_TOKEN }}
-        #     #workflow: product-integ2.yml
-        #     name: Artifacts-${{ env.artifact_version }} 
-
-        # - name: Add variable value for the current repository in an interactive prompt    
-        #   run: |
-        #     gh variable set RUN_ID
-        #   shell: bash
-
         
-        # - name: Download artifact with command line gh run download run_id    
-        #   run: |
-        #     gh run download "${{vars.RUN_ID}}"
-        #   shell: bash
-
         - name: Download artifact with command line gh run download run_id    
           run: |
-            gh run download ${{vars.RUN_ID}}
+            gh run download "${{vars.RUN_ID}}"  # The type of the RUN_ID has to be a string
           shell: bash
-
-        # - name: Download artifact with command line gh run download run_id    
-        #   run: |
-        #     gh run download 5508823589
-        #   shell: bash
-        
-        # Checker download dawidd6
-        # It works 
-        # But because it's not a standard actions of github, not recommended because problem of security.   
-        # - name: Download artifact
-        #   uses: dawidd6/action-download-artifact@v2
-        #   id: download
-        #   with:
-        #     github_token: ${{ secrets.GITHUB_TOKEN }}
-        #     workflow: product-integ2.yml
-        #     name: Artifacts-${{ env.artifact_version }}
-        #     path: path/to/artifacts
-        
         
         - name: Test downloaded Artifact
           run: ls -R      
 
-        # Adding a conditional to the release creation stage to check 
-        # if the run is the first run(if github.run_number == 1), and then only create a release if it is,
-        # otherwise skip that stage   
+        # Works when creating tag and each time run the release to new tag created
+        # Validation Failed: {"resource":"Release","code":"already_exists","field":"tag_name"}   
         - name: Create GitHub release
           uses: actions/create-release@v1
           
           env: 
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
           with:
-            tag_name: ${{ github.ref_name }}
+            tag_name: ${{ github.ref_name }}  # ref_name = tag number created on github
             release_name: Release ${{ github.run_number }}
             
         # Runs a single command using the runners shell
