@@ -37,8 +37,9 @@ jobs:
           run: npm install sfdx-cli --global
         
         - name: Download artifact with command line gh run download run_id    
+          # The type of the RUN_ID has to be a string
           run: |
-            gh run download "${{vars.RUN_ID}}"  # The type of the RUN_ID has to be a string
+            gh run download "${{vars.RUN_ID}}"  
           shell: bash
         
         - name: Test downloaded Artifact
