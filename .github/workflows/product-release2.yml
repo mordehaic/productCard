@@ -45,16 +45,16 @@ jobs:
         - name: Test downloaded Artifact
           run: ls -R      
 
-        # Works when creating tag and each time run the release to new tag created
-        # Validation Failed: {"resource":"Release","code":"already_exists","field":"tag_name"}   
-        - name: Create GitHub release
-          uses: actions/create-release@v1
+        ## Works when creating tag and each time run the release to new tag created
+        ## Validation Failed: {"resource":"Release","code":"already_exists","field":"tag_name"}   
+        ##- name: Create GitHub release
+        #  uses: actions/create-release@v1
           
-          env: 
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-          with:
-            tag_name: ${{ github.ref_name }}  # ref_name = tag number created on github
-            release_name: Release ${{ github.run_number }}
+        #  env: 
+        #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+        #  with:
+        #    tag_name: ${{ github.ref_name }}  # ref_name = tag number created on github
+        #    release_name: Release ${{ github.run_number }}
             
         # Runs a single command using the runners shell
         - name: Create the server.key file from the secret variable SERVER_KEY
