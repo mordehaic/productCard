@@ -85,13 +85,13 @@ jobs:
         #     replacesArtifacts: false
         #     token: ${{ secrets.GITHUB_TOKEN }}
         #     allowUpdates: true
-        - name: Create GitHub release
-          uses: actions/create-release@v1
-          env: 
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-          with:
-            tag_name: ${{ github.run_number }}
-            release_name: Release ${{ github.run_number }}
+        #- name: Create GitHub release
+        #  uses: actions/create-release@v1
+        #  env: 
+        #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+        #  with:
+        #    tag_name: ${{ github.run_number }}
+        #    release_name: Release ${{ github.run_number }}
             
         # Runs a single command using the runners shell
         - name: Create the server.key file from the secret variable SERVER_KEY
