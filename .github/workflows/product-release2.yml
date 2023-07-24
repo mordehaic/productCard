@@ -3,7 +3,10 @@ run-name: ${{ github.actor }} is launching 🚀
 
 on:
   workflow_dispatch:   # To prevent automatic execution of the pipeline when push on a remote branch
-
+    inputs:
+      tag_number:
+        required: true
+        type: number
 env:
   NODE_VERSION: "18.x" # set this to the node version to use
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
@@ -19,6 +22,15 @@ jobs:
 
       # Steps represent a sequence of tasks that will be executed as part of the job
       steps:
+
+        - name: Inputs tag_number (workflow call)
+          if: ${{ inputs.tag_number }} != 0
+          run: echo ${{ inputs.tag_number }}
+
+        - name: Inputs tag_number (workflow dispatch)
+          if: ${{ github.event.inputs.tag_number }} != 0
+          run: echo ${{ github.event.inputs.tag_number }}  
+
         # Check-out the repository under $GITHUB_WORKSPACE, so the job can access it
         - name: Checkout the repository
           uses: actions/checkout@v3
@@ -53,7 +65,8 @@ jobs:
           env: 
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
           with:
-            tag_name: ${{ github.ref_name }}  # ref_name = tag number created on github
+            #tag_name: ${{ github.ref_name }}  # ref_name = tag number created on github
+            tag_name: ${{ inputs.tag_number }}
             release_name: Release ${{ github.run_number }}
             
         # Runs a single command using the runners shell
