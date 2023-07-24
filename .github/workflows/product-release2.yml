@@ -57,6 +57,7 @@ jobs:
         - name: Test downloaded Artifact
           run: ls -R      
 
+
         # Works when creating tag and each time run the release to new tag created
         # Validation Failed: {"resource":"Release","code":"already_exists","field":"tag_name"}   
         - name: Create GitHub release
@@ -68,6 +69,9 @@ jobs:
             #tag_name: ${{ github.ref_name }}  # ref_name = tag number created on github
             tag_name: ${{ inputs.tag_number }}
             release_name: Release ${{ github.run_number }}
+
+        
+        
             
         # Runs a single command using the runners shell
         - name: Create the server.key file from the secret variable SERVER_KEY
@@ -81,4 +85,10 @@ jobs:
         - name: Deployment to Salesforce
           run: sfdx force:source:deploy -p force-app -w 10 -u ${{vars.USERNAME}}
         
+
         - run: echo "This job's status is ${{ job.status }}."
+
+        
+     
+        
+
