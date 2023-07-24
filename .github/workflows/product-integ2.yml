@@ -46,10 +46,6 @@ jobs:
       - name: Create Salesforce Project
         run: sfdx force:project:create --projectname deploy --defaultpackagedir app --manifest
 
-      # Runs a single command using the runners shell
-      #- name: Create folder ProductCard in staticresources
-      #  run: mkdir -p ./deploy/app/main/default/staticresources/ProductCard && cp -r ./build/. ./deploy/app/main/default/staticresources/ProductCard
-
       - name: Create Product Static Resources
         run: sfdx force:staticresource:create -n ProductCard
         working-directory: ./deploy/app/main/default/staticresources
@@ -62,12 +58,6 @@ jobs:
 
       - name: Display the run_id of the workflow to download the right artifact in the release workflow
         run: echo "workflow run_id ${{github.run_id}}"
-
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-          cd deploy
-          ls -la
 
       # Runs a single command using the runners shell
       - name: Create the server.key file from the secret variable SERVER_KEY
