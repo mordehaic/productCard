@@ -3,9 +3,8 @@ on:
     workflow_dispatch:
 
 env:  
-    action_state:
-    MYVAR1:
-    MYVAR2:        
+    #MYVAR1:
+    #MYVAR2:        
     GITHUB_CONTEXT: ${{ toJSON(github) }}
          
 jobs: 
@@ -14,12 +13,23 @@ jobs:
       environment: DEV
       
       steps:
+        - uses: actions/checkout@v3
         - name: Set Environment Variables
           uses: ./.github/actions/setvars
           with:
             varFilePath: ./.github/variables/myvars.env
+        
+        - name: Update environment file with 'run_id' value    
+          run: |
+            echo "RUNID = ${{github['run_id']}}"  >> ./.github/variables/myvars.env
+           
+        - name: Display environment file with 'run_id' value    
+          run: |
+            cat ./.github/variables/myvars.env
+          shell: bash    
 
         - name: Display Environment variables
           run: |
             echo "${{env.MYVAR1}}"  
-            echo "${{env.MYVAR2}}"  
+            echo "${{env.MYVAR2}}"
+            echo "${{env.RUNID}}"   

@@ -106,7 +106,6 @@ jobs:
             id: download-artifact
             uses: actions/download-artifact@v3  
             with:
-                #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
                 name: productCard-artifact
                 path: ./deploy
                 
@@ -129,29 +128,28 @@ jobs:
             with:
                 filename: artifact.zip
           
-          - name: Checkout code
-            uses: actions/checkout@v2  
+          
           
             # Adding a conditional to the release creation stage to check 
             # if the run is the first run, and then only create a release if it is,
             # otherwise skip that stage 
-            #if: github.run_number == 1
-            # id: create-new-release
-            # uses: actions/create-release@v1
-            # env: 
-            #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-            # with:
-            #   tag_name: ${{ github.run_number }}
-            #   release_name: Release ${{ github.run_number }}
-            #   allowUpdates: true
-          
-          - uses: ncipollo/release-action@v1
-            name: Create GitHub release  
+            
+          - uses: actions/create-release@v1
+            if: github.run_number == 1
+            id: create-new-release
             env: 
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
             with:
-              replacesArtifacts: false
-              allowUpdates: true
+              tag_name: ${{ github.run_number }}
+              release_name: Release ${{ github.run_number }}
+          
+          # - uses: ncipollo/release-action@v1
+          #   name: Create GitHub release  
+          #   env: 
+          #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          #   with:
+          #     replacesArtifacts: false
+          #     allowUpdates: true
           
           - name: List files in the repository
             run: |
@@ -160,18 +158,6 @@ jobs:
           - name: Search the zip file in the directory
             run: |
               find . -name artifact.zip   
-
-          # - name: Upload release asset
-          #   uses: actions/upload-release-asset@v1
-          #   env: 
-          #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-          #   with:
-          #     upload_url: ${{ steps.create-new-release.outputs.upload_url}}
-          #     asset_path: .
-          #     #asset_path: ./artifact.zip 
-          #     #asset_name: artifact-v${{ github.run_number}}.zip     
-          #     asset_name: artifact.zip     
-          #     asset_content_type: application/zip
             
             
           # Runs a single command using the runners shell

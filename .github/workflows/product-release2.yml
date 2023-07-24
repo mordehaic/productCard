@@ -2,18 +2,15 @@ name: product-release2
 run-name: ${{ github.actor }} is launching 🚀
 
 on:
-  workflow_dispatch:   ## To prevent the run of the script after pushing it to the repo
-#   push:
-#     branches: [dev]
-#   pull_request: 
-#     branches: [dev]  
-#  push:
-#    tags:
-#      - '*'
-
+  workflow_dispatch:   # To prevent automatic execution of the pipeline when push on a remote branch
+    inputs:
+      tag_number:
+        required: true
+        type: number
 env:
   NODE_VERSION: "18.x" # set this to the node version to use
-  artifact_version: 1.0.6
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+  GITHUB_CONTEXT: ${{ toJSON(github) }}
         
 jobs:
 
@@ -25,11 +22,20 @@ jobs:
 
       # Steps represent a sequence of tasks that will be executed as part of the job
       steps:
+
+        - name: Inputs tag_number (workflow call)
+          if: ${{ inputs.tag_number }} != 0
+          run: echo ${{ inputs.tag_number }}
+
+        - name: Inputs tag_number (workflow dispatch)
+          if: ${{ github.event.inputs.tag_number }} != 0
+          run: echo ${{ github.event.inputs.tag_number }}  
+
         # Check-out the repository under $GITHUB_WORKSPACE, so the job can access it
         - name: Checkout the repository
           uses: actions/checkout@v3
-          with:
-            fetch-depth: 0
+          # with:
+          #   fetch-depth: 0
 
         - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
 
@@ -41,57 +47,31 @@ jobs:
         # Runs a single command using the runners shell
         - name: Install Salesforce CLI
           run: npm install sfdx-cli --global
-
-        #- Not works
-        #Error message: Unable to find any artifacts for the associated workflow
-        - name: Download artifact
-          uses: actions/download-artifact@v3
-          id: download
-          with:
-            #github_token: ${{ secrets.GITHUB_TOKEN }}
-            #workflow: product-integ2.yml
-            name: Artifacts-${{ env.artifact_version }} 
-         
-        - name: 'Echo download path'
-          run: echo ${{steps.download.outputs.download-path}}    
-
-        # Checker download dawidd6    
-        # - name: Download artifact
-        #   uses: dawidd6/action-download-artifact@v2
-        #   id: download
-        #   with:
-        #     github_token: ${{ secrets.GITHUB_TOKEN }}
-        #     workflow: product-integ2.yml
-        #     name: Artifacts ${{ env.artifact_version }}
-        #     path: path/to/artifacts
-           
-
-        - name: 'Echo download path'
-          run: echo ${{steps.download.outputs.download-path}}   
-
+        
+        - name: Download artifact with command line gh run download run_id    
+          # The type of the RUN_ID has to be a string
+          run: |
+            gh run download "${{vars.RUN_ID}}"  
+          shell: bash
+        
         - name: Test downloaded Artifact
           run: ls -R      
+
+
+        # Works when creating tag and each time run the release to new tag created
+        # Validation Failed: {"resource":"Release","code":"already_exists","field":"tag_name"}   
+        - name: Create GitHub release
+          uses: actions/create-release@v1
+          
+          env: 
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          with:
+            #tag_name: ${{ github.ref_name }}  # ref_name = tag number created on github
+            tag_name: ${{ inputs.tag_number }}
+            release_name: Release ${{ github.run_number }}
+
         
-        # Adding a conditional to the release creation stage to check 
-        # if the run is the first run, and then only create a release if it is,
-        # otherwise skip that stage 
-        # - name: Create GitHub release
-        #   id: create-new-release
-        #   uses: ncipollo/release-action@v1
-        #   env: 
-        #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-        #   with:
-        #     artifacts: Artifacts_${{ env.ARTIFACT_SHA }}
-        #     replacesArtifacts: false
-        #     token: ${{ secrets.GITHUB_TOKEN }}
-        #     allowUpdates: true
-        #- name: Create GitHub release
-        #  uses: actions/create-release@v1
-        #  env: 
-        #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-        #  with:
-        #    tag_name: ${{ github.run_number }}
-        #    release_name: Release ${{ github.run_number }}
+        
             
         # Runs a single command using the runners shell
         - name: Create the server.key file from the secret variable SERVER_KEY
@@ -105,8 +85,10 @@ jobs:
         - name: Deployment to Salesforce
           run: sfdx force:source:deploy -p force-app -w 10 -u ${{vars.USERNAME}}
         
+
         - run: echo "This job's status is ${{ job.status }}."
+
         
      
         
-  
+
