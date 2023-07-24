@@ -2,11 +2,11 @@ name: product CI/CD
 run-name: ${{ github.actor }} is launching 🚀
 
 on:
-  workflow_dispatch:
-#    push:
-#     branches: [dev]
-#    pull_request:
-#     branches: [dev]
+  #workflow_dispatch:
+   push:
+    branches: [dev]
+   pull_request:
+    branches: [dev]
 
 env:
   NODE_VERSION: "18.x" # set this to the node version to use
@@ -32,8 +32,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
-          #node-version: 18.x
-          #cache: 'npm'
 
       # Runs a set of commands using the runners shell
       - name: npm install, build, and test
@@ -58,14 +56,6 @@ jobs:
         run: sfdx force:staticresource:create -n ProductCard
         working-directory: ./deploy/app/main/default/staticresources
 
-      # # Runs a set of commands using the runners shell
-      # - name: 'Build and Deploy'
-      #   run: |
-      #     wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
-      #     mkdir sfdx-cli
-      #     tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli
-      #     ./sfdx-cli/install
-
       # Runs a single command using the runners shell
       - name: Create the server.key file from the secret variable SERVER_KEY
         run: echo "${{ secrets.SERVER_KEY }}"  > server.key
@@ -77,18 +67,13 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Deployment to Salesforce
         run: sfdx force:source:deploy -p force-app -w 10 -u ${{vars.USERNAME}}
-        #run: sfdx force:source:deploy -p force-app/main/default/lwc/productCard -u ${{vars.USERNAME}}
-        #working-directory: ./deploy
-        #run: sfdx force:mdapi:deploy -d force-app/main/default -u ${{vars.USERNAME}}
-        # run: |
-        #   sfdx force:source:convert --rootdir app --outputdir app_tmp
-        #   zip -r app.zip app_tmp
-        #   rm -r app_tmp
-        #   sfdx force:mdapi:deploy --zipfile app.zip -w 10 -u ${{ vars.USERNAME }} -l NoTestRun
-        #   working-directory: ./deploy
-     
-      # - name: List files in the repository
-      #   run: |
-      #     ls ${{ github.workspace }}
+       
+      #run: sfdx force:mdapi:deploy -d force-app/main/default -u ${{vars.USERNAME}}
+      # run: |
+      #   sfdx force:source:convert --rootdir app --outputdir app_tmp
+      #   zip -r app.zip app_tmp
+      #   rm -r app_tmp
+      #   sfdx force:mdapi:deploy --zipfile app.zip -w 10 -u ${{ vars.USERNAME }} -l NoTestRun
+      #   working-directory: ./deploy
 
       - run: echo "This job's status is ${{ job.status }}."
