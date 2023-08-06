@@ -1,4 +1,4 @@
-name: product CI/CD
+name: bikeCard CI/CD
 run-name: ${{ github.actor }} is launching 🚀
 
 on:
