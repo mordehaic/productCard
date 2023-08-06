@@ -2,9 +2,9 @@ name: product CI/CD
 run-name: ${{ github.actor }} is launching 🚀
 
 on:
-  workflow_dispatch:
-#    push:
-#     branches: [dev]
+  #workflow_dispatch:
+   push:
+    branches: [bikecard]
 #    pull_request:
 #     branches: [dev]
 
