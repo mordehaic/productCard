@@ -34,8 +34,8 @@ jobs:
 
             - name: Update environment file with 'run_id' value
               run: |
-                echo "runid = ${{github['run_id']}}"  > file.txt
-                cat file
+                echo "${{github['run_id']}}"  > file.txt
+                cat file.txt
         
             - name: Inputs runid (workflow call)
               if: ${{ inputs.runid }} != ''
