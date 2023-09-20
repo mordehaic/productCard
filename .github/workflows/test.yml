@@ -9,6 +9,7 @@ on:
 env:
    RUNID: ${{github['run_id']}}
    GITHUB_ENV: ${{ toJSON(github) }}
+   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}ß
          
 
 jobs: 
