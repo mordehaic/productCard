@@ -34,12 +34,12 @@ jobs:
 
             - name: Update environment file with 'run_id' value
               run: |
-                echo "runid = ${{github['run_id']}}"  > file
+                echo "runid = ${{github['run_id']}}"  > file.txt
                 cat file
         
             - name: Inputs runid (workflow call)
               if: ${{ inputs.runid }} != ''
-              run: 'gh variable set RUN_ID --body ${{env.RUNID}}'
+              run: 'gh variable set RUN_ID < file.txt'
 
             - name: Set runid variable 
               run: echo "${{vars.runid}}" 
