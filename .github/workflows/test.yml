@@ -42,10 +42,17 @@ jobs:
               run: |
                   ls -la      
             
+            - name: Change mode to file
+              run: chmod +rwx file
+
+            - name: List directories
+              run: |
+                  ls -la   
+
             - name: Inputs runid (workflow call)
               if: ${{ inputs.runid }} != ''
               run: 'gh variable set RUN_ID < file'
-              
+
 
             - name: Set runid variable 
               run: echo "${{vars.runid}}" 
