@@ -44,7 +44,8 @@ jobs:
 
             - name: Inputs runid (workflow call)
               if: ${{ inputs.runid }} != ''
-              run: 'gh variable set RUN_ID < file'
+              run: 'gh variable set RUNID < file'
+              #run: 'gh variable set RUN_ID < file'
 
 
             - name: Set runid variable 
