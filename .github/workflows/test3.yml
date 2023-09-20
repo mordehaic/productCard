@@ -48,4 +48,4 @@ jobs:
 
 
             - name: Set runid variable 
-              run: echo "${{vars.runid}}" 
+              run: echo "${{vars.run_id}}" 
