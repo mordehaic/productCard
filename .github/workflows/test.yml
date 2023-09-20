@@ -42,6 +42,10 @@ jobs:
               if: ${{ inputs.runid }} != ''
               run: 'gh variable set RUN_ID < file'
 
+            - name: List directories
+              run: |
+                ls -la  
+
             - name: Set runid variable 
               run: echo "${{vars.runid}}" 
 
