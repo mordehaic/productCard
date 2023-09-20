@@ -37,14 +37,15 @@ jobs:
               run: |
                 echo "${{github['run_id']}}"  > file
                 cat file
-        
-            - name: Inputs runid (workflow call)
-              if: ${{ inputs.runid }} != ''
-              run: 'gh variable set RUN_ID < file'
 
             - name: List directories
               run: |
-                ls -la  
+                  ls -la      
+            
+            - name: Inputs runid (workflow call)
+              if: ${{ inputs.runid }} != ''
+              run: 'gh variable set RUN_ID < file'
+              
 
             - name: Set runid variable 
               run: echo "${{vars.runid}}" 
