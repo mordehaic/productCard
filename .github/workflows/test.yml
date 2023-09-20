@@ -39,7 +39,7 @@ jobs:
         
             - name: Inputs runid (workflow call)
               if: ${{ inputs.runid }} != ''
-              run: 'gh variable set RUN_ID --body "$env.RUNID"'
+              run: 'gh variable set RUN_ID --body ${{env.RUNID}}'
 
             - name: Set runid variable 
               run: echo "${{vars.runid}}" 
