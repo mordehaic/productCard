@@ -43,7 +43,7 @@ jobs:
                   ls -la      
             
             - name: Change mode to file
-              run: chmod +rwx file
+              run: chmod 777 file
 
             - name: List directories
               run: |
