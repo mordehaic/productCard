@@ -7,7 +7,7 @@ on:
            type: number
 
 env:
-   RUNID: ${{github['run_id']}}
+   RUN_ID: ${{github['run_id']}}
    GITHUB_ENV: ${{ toJSON(github) }}
    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}ß
          
@@ -44,7 +44,7 @@ jobs:
 
             - name: Inputs runid (workflow call)
               if: ${{ inputs.runid }} != ''
-              run: 'gh variable set RUNID'
+              run: 'gh variable set RUNID --body "$RUN_ID"'
               #run: 'gh variable set RUN_ID < file'
 
 
