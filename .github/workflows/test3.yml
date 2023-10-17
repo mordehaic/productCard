@@ -43,7 +43,7 @@ jobs:
                   ls -la   
 
             - name: Inputs runid (workflow call)
-              if: ${{ inputs.runid }} != ''
+              if: ${{ inputs.runid }} != 0
               run: 'gh variable set RUNID --body ${{env.RUN_ID}}'
                 
               #run: 'gh variable set RUNID --body "$RUN_ID"'
